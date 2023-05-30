@@ -1,1 +1,20 @@
-hhhh
+
+To show html tag hint in react jsx 
+i> Go to vs code
+ii>At vs code editor left-bottom side click setting icon
+iii>After that choose settings
+iv> Now click on top-right icon (open settings (ui))
+v> Now add code here at bottom i.e.
+
+"emmet.includeLanguages": {
+    "javascript":"javascriptreact"
+}
+
+
+
+
+<!--################### To add extension for creating components in react i.e. (function components) ############-->
+
+i>  Go to vs code and then click on extensions icon
+ii> Type "ES7+React/Redux/React-Native snippets"
+    created by "dsznajder"
