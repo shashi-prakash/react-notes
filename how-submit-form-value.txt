@@ -1,0 +1,16 @@
+how to submit form in react js
+
+1 create a form with input field with name and value attributes value should be like that value={statevariable_name.with input_name}
+  and also onchange events to get the value of input field.
+2.Now create a usestate for get form attributes
+
+const [formData, setFormData] = useState({
+name : "",
+});
+
+const onchangehandle = (e) => {
+
+const [name, value] = e.target;
+setformData({...formData,[name]:value})
+
+}
