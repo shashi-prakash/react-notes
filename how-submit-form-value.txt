@@ -5,12 +5,26 @@ how to submit form in react js
 2.Now create a usestate for get form attributes
 
 const [formData, setFormData] = useState({
-name : "",
+username : "",
 });
 
 const onchangehandle = (e) => {
-
 const [name, value] = e.target;
 setformData({...formData,[name]:value})
+}
 
+const submit = () => {
+     const userData = {
+      username: formData.username,      
+    };
+    axios
+      .post("url_here", userData)
+      .then((response) => {
+        const { message, success } = response.data;
+        if (success) {
+          alert("submitted")
+        } else {
+         alert("failed")
+        }
+      });
 }
