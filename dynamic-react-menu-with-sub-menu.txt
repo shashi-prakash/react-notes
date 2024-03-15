@@ -1,0 +1,111 @@
+################################# navbar components #############################
+
+import React, { useState } from 'react';
+import navItems from './navItem'; // Import the custom JavaScript file
+import './navbar.css'
+function Navbar() {
+
+    return (
+        <div className="navbar">
+            <div className="logo">Logo</div>
+            <ul className="menu">
+                {navItems.map(item => (
+                    <li key={item.id}>
+                        {item.name}
+                        {item.submenu && <span className="submenu-indicator">&#9660;</span>}
+                        {item.submenu && (
+                            <ul className="submenu">
+                                {item.submenu.map((subItem, index) => (
+                                    <li key={index}>{subItem}</li>
+                                ))}
+                            </ul>
+                        )}
+                    </li>
+                ))}
+            </ul>
+            <div className="toggle-icon">&#9776;</div> {/* Toggle icon on the right */}
+        </div>
+    );
+}
+
+export default Navbar;
+
+################################# navbar components #############################
+
+################################# navbar list #############################
+
+const navItems = [
+    { id: 1, name: 'Home', submenu: ['Submenu 1', 'Submenu 2'] },
+    { id: 2, name: 'About', submenu: ['Submenu 1', 'Submenu 2'] },
+    { id: 3, name: 'Services', submenu: ['Submenu 1', 'Submenu 2'] },
+    { id: 4, name: 'Contact', submenu: ['Submenu 1', 'Submenu 2'] }
+];
+
+export default navItems;
+
+################################# navbar list #############################
+
+
+################################# navbar style css #############################
+
+
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  padding: 10px 20px;
+}
+
+.logo {
+  color: white;
+  font-size: 20px;
+}
+
+.menu {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu li {
+  display: inline-block;
+  position: relative;
+  /* Make the parent li items relative */
+  margin: 0 10px;
+  color: white;
+  font-size: 16px;
+}
+
+.menu li:hover .submenu {
+  display: block;
+  /* Show submenu on hover */
+}
+
+.submenu {
+  display: none;
+  /* Hide submenu by default */
+  position: absolute;
+  top: 100%;
+  /* Position the submenu below the parent */
+  left: 0;
+  background-color: #555;
+  padding: 10px;
+}
+
+.submenu li {
+  display: block;
+  color: white;
+  font-size: 16px;
+}
+
+.submenu li:hover {
+  background-color: #777;
+}
+
+.toggle-icon {
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
