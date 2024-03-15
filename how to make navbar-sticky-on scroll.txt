@@ -1,0 +1,61 @@
+import React, { useState, useEffect } from 'react';
+
+function Navbar() {
+  
+    const [isSticky, setIsSticky] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 200) {
+                setIsSticky(true);
+            } else {
+                setIsSticky(false);
+            }
+        };
+
+        // on scroll event call function
+        window.addEventListener('scroll', handleScroll);
+
+        // react life cycle unmounting phase
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+
+        };
+    }, []);
+
+
+    return (
+        <>
+
+            <nav className={isSticky ? 'navbar sticky' : 'navbar'}>
+
+            <p style={{ color: "white" }}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, saepe.</p>
+
+            </nav>
+        </>
+    );
+}
+
+export default Navbar;
+
+
+################################### Now add css #################################################
+
+
+.navbar {
+   transition: top 0.3s ease; // for transition effects
+}
+
+
+.navbar.sticky { // no space between both class
+  position: fixed;
+  width: 100%;
+  top: -60px;
+  transform: translateY(60px);
+  transition: transform .6s;
+  opacity: .9;
+  -webkit-box-shadow: 0 2px 5px rgb(0 0 0 / 25%);
+  -moz-transform: translateY(-100%);
+  -ms-transform: translateY(-100%);
+}
+
