@@ -5,24 +5,40 @@ import navItems from './navItem'; // Import the custom JavaScript file
 import './navbar.css'
 function Navbar() {
 
+ const [activeItem, setActiveItem] = useState(navItems[0].name); // Initialize active item with the first item
+
+    // Function to handle click on navigation item
+    const handleItemClick = (itemName) => {
+        setActiveItem(itemName);
+    };
+
+
+
     return (
         <div className="navbar">
             <div className="logo">Logo</div>
-            <ul className="menu">
-                {navItems.map(item => (
-                    <li key={item.id}>
-                        {item.name}
-                        {item.submenu && <span className="submenu-indicator">&#9660;</span>}
-                        {item.submenu && (
-                            <ul className="submenu">
-                                {item.submenu.map((subItem, index) => (
-                                    <li key={index}>{subItem}</li>
-                                ))}
-                            </ul>
-                        )}
-                    </li>
-                ))}
-            </ul>
+              <ul className="menu">
+                    {navItems.map(item => (
+                        <li key={item.id} className={activeItem === item.name ? 'active' : ''}>
+
+                            <Link to={item.routing} onClick={() => handleItemClick(item.name)}>{item.name}</Link>
+                            {item.submenu && <span className="submenu-indicator">&#9660;</span>}
+                            {item.submenu && (
+                                <ul className="submenu">
+                                    {item.submenu.map((subItem, index) => (
+
+                                        <li key={index} className={activeItem === subItem.name ? 'active' : ''}>
+                                            <Link to={subItem.routing} onClick={() => handleItemClick(subItem.name)}>{subItem.name}</Link>
+                                        </li>
+
+                                    ))}
+
+                                </ul>
+                            )}
+
+                        </li>
+                    ))}
+                </ul>
             <div className="toggle-icon">&#9776;</div> {/* Toggle icon on the right */}
         </div>
     );
@@ -32,13 +48,34 @@ export default Navbar;
 
 ################################# navbar components #############################
 
-################################# navbar list #############################
+################################# navbar list(make a js file for list) #############################
 
 const navItems = [
-    { id: 1, name: 'Home', submenu: ['Submenu 1', 'Submenu 2'] },
-    { id: 2, name: 'About', submenu: ['Submenu 1', 'Submenu 2'] },
-    { id: 3, name: 'Services', submenu: ['Submenu 1', 'Submenu 2'] },
-    { id: 4, name: 'Contact', submenu: ['Submenu 1', 'Submenu 2'] }
+    {
+        id: 1,
+        name: 'Home',
+        routing: '/'
+    },
+    {
+        id: 2,
+        name: 'About',
+        routing: '/about'
+
+    },
+
+    {
+        id: 3, name: 'Services',
+        submenu: [
+            {
+                name: 'Home Delivery',
+                routing: '/services/home-delivey'
+            },
+            {
+                name: 'Packing',
+                routing: '/services/packeging'
+            }
+        ]
+    }
 ];
 
 export default navItems;
@@ -47,8 +84,32 @@ export default navItems;
 
 
 ################################# navbar style css #############################
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+a {
+  color: white;
+  text-decoration: none;
+}
 
+a:hover {
+  color: red;
+}
+
+.container {
+  width: 100%;
+  /* Full width */
+  margin-right: auto;
+  /* Auto margins to center the container */
+  margin-left: auto;
+  /* Auto margins to center the container */
+  padding-right: 15px;
+  /* Padding on the right side */
+  padding-left: 15px;
+}
 
 .navbar {
   display: flex;
@@ -56,6 +117,7 @@ export default navItems;
   align-items: center;
   background-color: #333;
   padding: 10px 20px;
+  transition: top 0.3s ease;
 }
 
 .logo {
@@ -69,39 +131,71 @@ export default navItems;
   margin: 0;
 }
 
+
+.navbar.sticky {
+  position: fixed;
+  width: 100%;
+  top: -60px;
+  transform: translateY(60px);
+  transition: transform .6s;
+  opacity: .9;
+  -webkit-box-shadow: 0 2px 5px rgb(0 0 0 / 25%);
+  box-shadow: 0 2px 5px rgb(0 0 0 / 25%);
+  -ms-transform: translateY(-100%);
+}
+
 .menu li {
   display: inline-block;
   position: relative;
   /* Make the parent li items relative */
   margin: 0 10px;
-  color: white;
+  /* color: white; */
   font-size: 16px;
+  cursor: pointer;
 }
 
 .menu li:hover .submenu {
   display: block;
-  /* Show submenu on hover */
+
 }
+
+
 
 .submenu {
   display: none;
-  /* Hide submenu by default */
   position: absolute;
   top: 100%;
-  /* Position the submenu below the parent */
   left: 0;
-  background-color: #555;
-  padding: 10px;
+  background-color: #333;
+  padding: 10px 5px;
+  text-wrap: nowrap;
+  border-bottom: 1px solid red;
 }
 
 .submenu li {
   display: block;
   color: white;
   font-size: 16px;
+  padding: 10px 0;
+}
+
+.menu .active a {
+  color: red;
+}
+
+.submenu .active a {
+  color: red;
+}
+
+.submenu li:not(:last-child) {
+  border-bottom: 1px solid white;
+  /* Add border to all items except the last child */
 }
 
 .submenu li:hover {
-  background-color: #777;
+  background-color: transparent;
+  color: red;
+  cursor: pointer;
 }
 
 .toggle-icon {
