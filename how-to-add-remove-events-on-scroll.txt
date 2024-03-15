@@ -1,0 +1,20 @@
+const [isSticky, setIsSticky] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 200) {
+                setIsSticky(true);
+            } else {
+                setIsSticky(false);
+            }
+        };
+
+        // on scroll event call function
+        window.addEventListener('scroll', handleScroll);
+
+        // react life cycle unmounting phase
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+
+        };
+    }, []);
