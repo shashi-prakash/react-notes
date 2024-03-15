@@ -1,7 +1,7 @@
 1. Firstly make a state
 
 const [loader, setLoader] = useState(false);
-2. Pass inside jsx(div section)
+2. inside Jsx
 
 {loader && (
         <div className="loader">
@@ -9,13 +9,13 @@ const [loader, setLoader] = useState(false);
         </div>
       )}
 
-3. Now make a events when wants to show (i make click events on submit) 
+3. Now make a events on submit to show loader
 const submitRegister = () => {
     setLoader(true);
   };
 
 
-4. Now styled it 
+4. Now css
 
 .loader {
   width: 100%;
